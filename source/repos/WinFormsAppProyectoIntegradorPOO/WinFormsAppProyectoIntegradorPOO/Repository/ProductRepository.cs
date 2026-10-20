@@ -79,7 +79,7 @@ namespace WinFormsAppProyectoIntegradorPOO.Repository
 
         public void create()
         {
-
+            NpgsqlConnection conne
         }
 
         

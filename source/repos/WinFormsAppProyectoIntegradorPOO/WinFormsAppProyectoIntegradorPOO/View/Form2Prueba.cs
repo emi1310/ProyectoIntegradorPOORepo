@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using WinFormsAppProyectoIntegradorPOO.Model;
 using WinFormsAppProyectoIntegradorPOO.Repository;
 
 namespace WinFormsAppProyectoIntegradorPOO
@@ -25,7 +26,7 @@ namespace WinFormsAppProyectoIntegradorPOO
         private void Form2Prueba_Load(object sender, EventArgs e)
         {
             ProductRepository productos = ProductRepository.getInstance(conn);
-            //productos.add("hyhhhhhhhhhhhhhh");
+            
             //showProducts();
         }
 
@@ -40,7 +41,7 @@ namespace WinFormsAppProyectoIntegradorPOO
         }
         private void showProducts()
         {
-            
+
             ProductRepository repository = ProductRepository.getInstance(conn);
 
             dataGridView1.DataSource = repository.get();
@@ -50,11 +51,20 @@ namespace WinFormsAppProyectoIntegradorPOO
         {
 
         }
-        
 
         private void MostrarProducto_Click(object sender, EventArgs e)
         {
             showProducts();
+        }
+
+        public void addProduct()
+        {
+            ProductRepository productos = ProductRepository.getInstance(conn);
+            productos.add("hyhhhhhh");
+        }
+        private void AddProduct_Click(object sender, EventArgs e)
+        {
+            addProduct();
         }
     }
 }
