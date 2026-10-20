@@ -10,10 +10,10 @@ namespace WinFormsAppProyectoIntegradorPOO.Repository
     {
         public void delete();
         public void update();
-        public void create(string name);
+        public void create();
         public DataTable get();
         public void drop();
-        public void add();
+        public void add(string name);
         
 
     }

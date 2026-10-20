@@ -43,7 +43,7 @@ namespace WinFormsAppProyectoIntegradorPOO.Repository
 
         }
         
-        public void create(string name)
+        public void add(string name)
         {
             NpgsqlConnection conne = conn.CreateConnection();
             conne.Open();
@@ -77,42 +77,12 @@ namespace WinFormsAppProyectoIntegradorPOO.Repository
 
         }
 
-        public void add()
+        public void create()
         {
 
         }
 
-        public void deleteProductFromList(int identificationCode)
-        {
-            Product product = FindProductByidentificationCode(identificationCode);
-            products.Remove(product);
-        }
-
-        public Product FindProductByidentificationCode(int identificationCode)
-        {
-            foreach (Product product in products)
-            {
-                if (product.IdentificationCode == identificationCode)
-                {
-                    return product;
-                } ;
-            }
-            return null;
-
-        }
-
-
-        /* int getLastId()
-        {
-
-        }
-        */
-    
-
-
-
-
-
+        
 
     }
 
