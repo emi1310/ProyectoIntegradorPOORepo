@@ -5,7 +5,7 @@ using System.Data;
 using System.Text;
 using WinFormsAppProyectoIntegradorPOO.Model;
 
-namespace WinFormsAppProyectoIntegradorPOO.Repository
+namespace WinFormsAppProyectoIntegradorPOO.Repository.DataBase
 {
     internal class DbConnectionPostgreSql : IDbConnection
     {

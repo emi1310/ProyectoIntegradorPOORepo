@@ -4,23 +4,20 @@ using System.Text;
 
 namespace WinFormsAppProyectoIntegradorPOO.DTO
 {
-    internal class ProductDTO
+    public  class ProductDTO
     {
-        public int id { get; set; }
-        public int identificationCode { get; set; }
-        public string name { get; set; }
-        public decimal unitPrice { get; set; }
+        public int id;
+        public string name;
+        public decimal unitPrice;
 
-        public ProductDTO(int identificationCode, string name, decimal unitPrice)
+        public ProductDTO( string name, decimal unitPrice)
         {
-            this.identificationCode = identificationCode;
             this.name = name;
             this.unitPrice = unitPrice;
         }
-        public ProductDTO(int id, int identificationCode, string name, decimal unitPrice)
+        public ProductDTO(int id, string name, decimal unitPrice)
         {
             this.id = id;
-            this.identificationCode = identificationCode;
             this.name = name;
             this.unitPrice = unitPrice;
         }

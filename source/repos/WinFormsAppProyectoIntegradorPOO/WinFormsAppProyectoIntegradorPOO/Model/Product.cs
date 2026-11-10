@@ -7,29 +7,27 @@ namespace WinFormsAppProyectoIntegradorPOO.Model
     internal class Product
     {
         private int id;
-        private int identificationCode; 
+        
         private string name;
         private decimal unitPrice;
 
-        public Product(int id, int identificationCode, string name, decimal unitPrice)
+        public Product(int id, string name, decimal unitPrice)
         {
-            int Id = id;
-            int IdentificationCode = identificationCode;
-            string Name = name;
-            decimal UnitPrice = unitPrice;
+            Id = id;
+            
+            Name = name;
+            UnitPrice = unitPrice;
         }
 
-        public Product(int identificationCode,string name, decimal unitPrice)
+        public Product(string name, decimal unitPrice)
         {
-            int IdentificationCode = identificationCode;
-            string Name = name;
-            decimal UnitPrice = unitPrice;
+             Name = name;
+             UnitPrice = unitPrice;
         }
 
-        public Product(int identificationCode,string name)
+        public Product(string name)
         {
-            int IdentificationCode = identificationCode;
-            string Name = name;
+            Name = name;
         }
 
         public int Id
@@ -42,23 +40,14 @@ namespace WinFormsAppProyectoIntegradorPOO.Model
             }
         }
 
-        public int IdentificationCode
-        {
-            get { return identificationCode; }
-            set
-            {
-                if (value >= 0) { identificationCode = value; }
-                throw new Exception();
-            }
-        }
 
         public string Name
         {
             get { return name; }
             set
             {
-                if (value is string) { name = value; }
-                throw new Exception();
+                if (value == null) { throw new NullReferenceException(); }
+                name = value;
             }
         }
         
@@ -67,8 +56,8 @@ namespace WinFormsAppProyectoIntegradorPOO.Model
             get { return unitPrice; }
             set
             {
-                if (value > 0) { unitPrice = value; }
-                throw new Exception();
+                if (value <= 0) { throw new Exception(); }
+                unitPrice = value;
             }
         }
     }

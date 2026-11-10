@@ -5,8 +5,12 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using WinFormsAppProyectoIntegradorPOO.Controller;
+using WinFormsAppProyectoIntegradorPOO.DTO;
 using WinFormsAppProyectoIntegradorPOO.Model;
 using WinFormsAppProyectoIntegradorPOO.Repository;
+using WinFormsAppProyectoIntegradorPOO.Repository.DataBase;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WinFormsAppProyectoIntegradorPOO
 {
@@ -19,6 +23,7 @@ namespace WinFormsAppProyectoIntegradorPOO
         "postgres",
         "43798911"
     );
+        ProductController productController = new ProductController();
         public Form2Prueba()
         {
             InitializeComponent();
@@ -26,18 +31,7 @@ namespace WinFormsAppProyectoIntegradorPOO
         private void Form2Prueba_Load(object sender, EventArgs e)
         {
             ProductRepository productos = ProductRepository.getInstance(conn);
-            
             //showProducts();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
         private void showProducts()
         {
@@ -45,11 +39,9 @@ namespace WinFormsAppProyectoIntegradorPOO
             ProductRepository repository = ProductRepository.getInstance(conn);
 
             dataGridView1.DataSource = repository.get();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            dataGridView1.Columns["Name"].HeaderText = "Nombre";
+            dataGridView1.Columns["UnitPrice"].HeaderText = "Precio";
+            dataGridView1.Columns["Id"].Visible = false;
         }
 
         private void MostrarProducto_Click(object sender, EventArgs e)
@@ -59,12 +51,70 @@ namespace WinFormsAppProyectoIntegradorPOO
 
         public void addProduct()
         {
-            ProductRepository productos = ProductRepository.getInstance(conn);
-            productos.add("hyhhhhhh");
+            ProductDTO product = createProduct();
+            productController.add(product, conn);
+            showProducts();
         }
         private void AddProduct_Click(object sender, EventArgs e)
         {
             addProduct();
         }
+
+
+        private ProductDTO createProduct()
+        {
+
+            string name = txtName.Text;
+            decimal price;
+            if (!decimal.TryParse(txtPrice.Text, out price))
+            {
+                MessageBox.Show("El precio ingresado no es válido.");
+                //throw new Exception("El precio ingresado no es válido.");
+            }
+
+            ProductDTO productoDTO = new ProductDTO(name, price);
+            showProducts();
+
+            return productoDTO;
+
+        }
+
+        private void deleteToolStripMenu_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null)
+                return;
+
+            ProductDTO producto = (ProductDTO)dataGridView1.CurrentRow.DataBoundItem;
+
+            DialogResult resultado = MessageBox.Show(
+                $"¿Querés eliminar el producto {producto.name}?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+
+            if (resultado == DialogResult.Yes)
+            {
+                productController.deleteProduct(producto, conn);
+
+                showProducts();
+            }
+        }
+
+        private void modifyToolStripMenu_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null)
+                return;
+
+            ProductDTO product = (ProductDTO)dataGridView1.CurrentRow.DataBoundItem;
+            FormUpdateProduct formUpdate = new FormUpdateProduct(product);
+
+            formUpdate.ShowDialog();
+
+            showProducts();
+            
+        }
+        
     }
 }
